@@ -2,6 +2,7 @@ import React from "react";
 import CardPopularProduct from "./CardPopularProduct";
 import CardPurchaseSummary from "./CardPurchaseSummary";
 import CardSalesSummary from "./CardSalesSummary";
+import CardExpenseSummary from "./CardExpenseSummary";
 
 const Dashboard = () => {
   return (
@@ -9,7 +10,7 @@ const Dashboard = () => {
       <CardPopularProduct/>
       <CardSalesSummary/>
       <CardPurchaseSummary/>
-      <div className="row-span-3 bg-gray-500"></div>
+      <CardExpenseSummary/>
       <div className="md:row-span-3 xl:row-span-2 bg-gray-500">
 
       </div>
