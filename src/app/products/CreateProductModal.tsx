@@ -21,7 +21,6 @@ const CreateProductModal = ({
   onCreate,
 }: CreateProductModalProps) => {
   const [formData, setFormData] = useState({
-    productId: "",
     name: "",
     price: 0,
     stockQuantity: 0,
@@ -36,6 +35,7 @@ const CreateProductModal = ({
   }
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(formData)
     onCreate(formData);
     onClose();
   };
