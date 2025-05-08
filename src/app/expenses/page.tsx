@@ -1,6 +1,7 @@
+"use client";
 import Header from '@/components/Header';
 import { useGetExpensesByCategoryQuery } from '@/state/api';
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 
 const Expense = () => {

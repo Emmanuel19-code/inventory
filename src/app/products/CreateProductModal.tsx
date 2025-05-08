@@ -3,10 +3,10 @@ import Header from "@/components/Header";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
 type ProductFormData = {
-  name: string;
-  price: number;
-  stockQuantity: number;
-  rating: number;
+  Name: string;
+  Price: number;
+  StockQuantity: number;
+  Rating: number;
 };
 
 type CreateProductModalProps = {
@@ -21,16 +21,16 @@ const CreateProductModal = ({
   onCreate,
 }: CreateProductModalProps) => {
   const [formData, setFormData] = useState({
-    name: "",
-    price: 0,
-    stockQuantity: 0,
-    rating: 0,
+    Name: "",
+    Price: 0,
+    StockQuantity: 0,
+    Rating: 0,
   });
   const handleChange = (e:ChangeEvent<HTMLInputElement>)=>{
     const {name,value} = e.target;
     setFormData({
         ...formData,
-        [name]: name === "price" || name === "stockQuantity" || name === "rating" ? parseFloat(value) : value
+        [name]: name === "Price" || name === "StockQuantity" || name === "Rating" ? parseFloat(value) : value
     })
   }
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -55,10 +55,10 @@ const CreateProductModal = ({
         </label>
         <input
           type="text"
-          name="name"
+          name="Name"
           placeholder="Name"
           onChange={handleChange}
-          value={formData.name}
+          value={formData.Name}
           className={inputCssStyles}
           required
         />
@@ -69,10 +69,10 @@ const CreateProductModal = ({
         </label>
         <input
           type="number"
-          name="price"
+          name="Price"
           placeholder="Price"
           onChange={handleChange}
-          value={formData.price}
+          value={formData.Price}
           className={inputCssStyles}
           required
         />
@@ -83,10 +83,10 @@ const CreateProductModal = ({
         </label>
         <input
           type="number"
-          name="stockQuantity"
+          name="StockQuantity"
           placeholder="Stock Quantity"
           onChange={handleChange}
-          value={formData.stockQuantity}
+          value={formData.StockQuantity}
           className={inputCssStyles}
           required
         />
@@ -97,10 +97,10 @@ const CreateProductModal = ({
         </label>
         <input
           type="number"
-          name="rating"
+          name="Rating"
           placeholder="Rating"
           onChange={handleChange}
-          value={formData.rating}
+          value={formData.Rating}
           className={inputCssStyles}
           required
         />

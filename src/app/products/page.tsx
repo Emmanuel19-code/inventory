@@ -26,7 +26,8 @@ const Products = () => {
 
   const [createProduct] = useCreateProductMutation();
   const handleCreateProduct = async (productData:ProductFormData)=>{
-     await createProduct(productData)
+    console.log("this is ",productData)
+    // await createProduct(productData)
   }
 
   if (isLoading) {
@@ -46,7 +47,7 @@ const Products = () => {
         <div className="flex items-center border-2 border-gray-200 rounded">
           <SearchIcon className="w-5 h-5 text-gray-500 m-2" />
           <input
-            className="w-full py-2 px-4 rounded bg-white"
+            className="w-full py-2 px-4 rounded outline-none bg-white"
             placeholder="Search products..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
