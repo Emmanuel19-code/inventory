@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export interface Product {
-  Id: string;
-  Name: string;
-  Price: number;
-  Rating?: number;
-  StockQuantity: number;
+  id: string;
+  name: string;
+  price: number;
+  rating?: number;
+  stockQuantity: number;
 }
 export interface NewProduct {
   Name: string;
@@ -53,6 +53,8 @@ export interface User {
   Name:string;
 }
 
+
+
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
   reducerPath: "api",
@@ -64,15 +66,17 @@ export const api = createApi({
     }),
     getProducts: build.query<Product[], void>({
       query: () => "/product",
+      transformResponse: (response: { data: Product[] }) => response.data,
       providesTags: ["Products"],
     }),
     getSearchProduct: build.query<Product[], string>({
       query: (search) => ({
         url: "/searchProduct",
-        params: search ? { search } : {},
+        params: search?.trim() ? { search } : undefined, // 👈 Correct fallback
       }),
+      transformResponse: (response: { data: Product[] }) => response.data, // 👈 Unwrap if backend wraps
       providesTags: ["SearchProduct"],
-    }),
+    }),    
     createProduct: build.mutation<Product, NewProduct>({
       query: (newProduct) => ({
         url: "/addProduct",

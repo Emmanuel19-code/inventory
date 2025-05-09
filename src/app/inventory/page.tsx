@@ -5,7 +5,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React from "react";
 
 const columns: GridColDef[] = [
-  { field: "productId", headerName: "ID", width: 90 },
+  { field: "id", headerName: "ID", width: 90 },
   { field: "name", headerName: "Product Name", width: 200 },
   {
     field: "price",
@@ -26,12 +26,20 @@ const columns: GridColDef[] = [
     headerName: "Stock Quantity",
     width: 150,
     type: "number",
+    valueGetter: (value, row) => (row.rating ? row.stockQuantity : "N/A"),
+  },
+  {
+    field: "totalSold",
+    headerName: "Told Sold",
+    width: 150,
+    type: "number",
     valueGetter: (value, row) => (row.rating ? row.rating : "N/A"),
   },
 ];
 
 const Inventory = () => {
   const { data: products, isError, isLoading } = useGetProductsQuery();
+  console.log("this",products);
   if (isLoading) {
     return <div className="py-4">Loading...</div>;
   }
@@ -42,13 +50,15 @@ const Inventory = () => {
       </div>
     );
   }
+  
+  
   return (
     <div className="flex flex-col">
       <Header name="Inventory" />
       <DataGrid
         rows={products}
         columns={columns}
-        getRowId={(row) => row.productId}
+        getRowId={(row) => row.id}
         checkboxSelection
         className="bg-white shadow rounded-lg border border-gray-200 mt-5 !text-gray-700"
       />

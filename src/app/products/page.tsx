@@ -8,10 +8,10 @@ import CreateProductModal from "./CreateProductModal";
 
 
 type ProductFormData = {
-  name:string;
-  price:number;
-  stockQuantity:number;
-  rating:number;
+  Name:string;
+  Price:number;
+  StockQuantity:number;
+  Rating:number;
 }
 
 const Products = () => {
@@ -22,24 +22,30 @@ const Products = () => {
     data: products,
     isLoading,
     isError,
-  } = useGetSearchProductQuery(searchTerm);
+  } = useGetSearchProductQuery(searchTerm, {
+    skip: searchTerm.trim() === "",  
+  });
 
+  
+  
   const [createProduct] = useCreateProductMutation();
   const handleCreateProduct = async (productData:ProductFormData)=>{
     console.log("this is ",productData)
-    // await createProduct(productData)
+    await createProduct(productData)
   }
 
   if (isLoading) {
     return <div className="py-y">Loading...</div>;
   }
-  //if (isError || !products) {
-  //  return (
-  //    <div className="text-center text-red-500 py-4">
-  //      Failed to fetch products
-  //    </div>
-  //  );
-  //}
+  if (isError ) {
+     console.log(isError);
+     
+    return (
+      <div className="text-center text-red-500 py-4">
+        Failed to fetch products
+      </div>
+    );
+  }
   return (
     <div className="mx-auto pb-5 w-full">
       {/* SEARCH BAR */}
@@ -74,21 +80,21 @@ const Products = () => {
         ) : (
           products?.map((product) => (
             <div
-              key={1}
+              key={product.id}
               className="border shadow rounded-md p-4 max-w-full w-full mx-auto"
             >
               <div className="flex flex-col items-center">
                 
                 <h3 className="text-lg text-gray-900 font-semibold">
-                  {product.Name}
+                  {product.name}
                 </h3>
-                <p className="text-gray-800">${product.Price.toFixed(2)}</p>
+                <p className="text-gray-800">${product.price.toFixed(2)}</p>
                 <div className="text-sm text-gray-600 mt-1">
-                  Stock: {product.StockQuantity}
+                  Stock: {product.stockQuantity}
                 </div>
-                {product.Rating && (
+                {product.rating && (
                   <div className="flex items-center mt-2">
-                    <Rating rating={product.Rating} />
+                    <Rating rating={product.rating} />
                   </div>
                 )}
               </div>
