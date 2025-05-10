@@ -1,14 +1,16 @@
+"use client";
 import { TrendingUp } from 'lucide-react';
 import React from 'react'
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
+import { useGetDashboardMetricsQuery } from '../../state/api';
 
 const CardExpenseSummary = () => {
     const { data: dashboardMetrics, isLoading } = useGetDashboardMetricsQuery();
 
-    const expenseSummary = dashboardMetrics?.expenseSummary[0];
+    const expenseSummary = dashboardMetrics?.ExpenseSummaries[0];
   
     const expenseByCategorySummary =
-      dashboardMetrics?.expenseByCategorySummary || [];
+      dashboardMetrics?.ExpenseByCategories || [];
   
     const expenseSums = expenseByCategorySummary.reduce(
       (acc: ExpenseSums, item: ExpenseByCategorySummary) => {
