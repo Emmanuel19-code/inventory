@@ -1,16 +1,22 @@
 "use client";
+import { useGetDashboardMetricsQuery } from '@/state/api';
 import { TrendingUp } from 'lucide-react';
 import React from 'react'
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
 import { useGetDashboardMetricsQuery } from '../../state/api';
 
+type ExpenseSums = {
+   [category:string]: number;
+}
+const colors = ["#00C40F","#00088FE","FFBB28"]
 const CardExpenseSummary = () => {
     const { data: dashboardMetrics, isLoading } = useGetDashboardMetricsQuery();
-
-    const expenseSummary = dashboardMetrics?.ExpenseSummaries[0];
-  
+    console.log(dashboardMetrics);
+    
+    const expenseSummary = dashboardMetrics?.ExpenseSummary[0];
+    
     const expenseByCategorySummary =
-      dashboardMetrics?.ExpenseByCategories || [];
+      dashboardMetrics?.ExpenseByCategory || [];
   
     const expenseSums = expenseByCategorySummary.reduce(
       (acc: ExpenseSums, item: ExpenseByCategorySummary) => {
@@ -30,11 +36,11 @@ const CardExpenseSummary = () => {
       })
     );
   
-    const totalExpenses = expenseCategories.reduce(
+    const totalExpenses = expenseCategories?.reduce(
       (acc, category: { value: number }) => acc + category.value,
       0
     );
-    const formattedTotalExpenses = totalExpenses.toFixed(2);
+    const formattedTotalExpenses = totalExpenses?.toFixed(2);
   
     return (
       <div className="row-span-3 bg-white shadow-md rounded-2xl flex flex-col justify-between">
@@ -105,7 +111,7 @@ const CardExpenseSummary = () => {
                     <p className="text-sm">
                       Average:{" "}
                       <span className="font-semibold">
-                        ${expenseSummary.totalExpenses.toFixed(2)}
+                        ${expenseSummary?.TotalExpenses.toFixed(2)}
                       </span>
                     </p>
                   </div>
